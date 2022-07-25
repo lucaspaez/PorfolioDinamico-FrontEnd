@@ -1,0 +1,39 @@
+<!-- Seccion de presentación -->
+<section id="hero" class="dark-bg">
+    <div class="container">
+        <div class="text-light position-absolute top-50 start-50 translate-middle">
+            <h1 id="titulo-hero">Lucas Paez</h1>
+            <h2 id="subtitulo-hero">¡Bienvenidos a mi Sitio!</h2>
+        </div>
+        <div class="text-light position-absolute top-70 start-50 translate-middle">
+            <!-- <h2 id="tipeador">
+                <span class="typed"></span>
+            </h2>
+            <div id="cadenas-texto">
+                <h2>Estudie <span class="subrayado">Electrónica</span></h2>
+                <h2>Soy <span class="subrayado">Programador</span></h2>
+                <h2>Especialista en <span class="subrayado">Redes</span></h2>
+                <h2>Trabajo como <span class="subrayado">Freelance</span></h2>
+            </div> -->
+            <ngx-typed-js [strings]="[
+                                      'Estudie <span class='+'subrayado'+'>Electrónica</span>',
+                                      'Soy <span class='+'subrayado'+'>Programador</span>',
+                                      'Especialista en <span class='+'subrayado'+'>Redes</span>',
+                                      'Trabajo como <span class='+'subrayado'+'>Freelance</span>'
+                                      ]"
+                          [shuffle]="false"
+                          [typeSpeed]="90"
+                          [startDelay]="300"
+                          [backSpeed]="50"
+                          [smartBackspace]="true"
+                          [backDelay]="1500"
+                          [loop]="true"
+                          [showCursor]="true"
+                          [cursorChar]="'_'"
+                          [contentType]="'html'">
+
+              <h2 class="typing"></h2>
+            </ngx-typed-js>
+        </div>
+    </div>
+</section>
