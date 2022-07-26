@@ -506,3 +506,26 @@ html,body{
 .progress-line.typescript span::after{
     content: "30%";
 } */
+
+
+/*  TagCloud de Skills  */
+
+.tagcloud {
+  font-family: 'Questrial', sans-serif;  
+  font-size: 20px;
+  font-weight: 650;
+  margin: auto;
+  color: rgb(255, 94, 0);
+}
+.tagcloud--item:hover {
+  color: rgb(255, 0, 0);
+}
+
+@media only screen and (max-width: 385px) {
+  .tagcloud {
+      margin: 0;
+  }
+  #skills{
+      padding: 20px;
+  }
+}

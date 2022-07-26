@@ -1,4 +1,7 @@
+import { TagContentType } from '@angular/compiler';
 import { Component } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-root',
@@ -7,6 +10,9 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'portfolio_dinamic_v1';
+
+  constructor(){ }
+
 }
 
 
