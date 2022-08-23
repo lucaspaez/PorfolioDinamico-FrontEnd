@@ -13,6 +13,10 @@ import { ExperienciaComponent } from './Componentes/experiencia/experiencia.comp
 import { PortafolioComponent } from './Componentes/portafolio/portafolio.component';
 import { ContactameComponent } from './Componentes/contactame/contactame.component';
 import { FooterComponent } from './Componentes/footer/footer.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { PortfolioComponent } from './componentes/portfolio/portfolio.component';
+import { AppRoutingModule } from './app-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -24,11 +28,15 @@ import { FooterComponent } from './Componentes/footer/footer.component';
     ExperienciaComponent,
     PortafolioComponent,
     ContactameComponent,
-    FooterComponent
+    FooterComponent,
+    LoginComponent,
+    PortfolioComponent
   ],
   imports: [
     BrowserModule,
-    NgxTypedJsModule
+    NgxTypedJsModule,
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
