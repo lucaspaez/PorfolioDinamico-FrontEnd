@@ -1,17 +1,27 @@
 <footer>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6 text-center">
-          <p>Trabajo para Argentina Programa #YoProgramo</p>
-  
-        </div>
-        <div class="col-sm-6 text-center">
-          <p>Proyecto: Portafolio Estatico con HTML, CSS y Javascript</p>
-        </div>
-        <div class="col-sm-12 text-center">
-          <p>Creado por Lucas Paez - 2022</p>
-        </div>
+  <div class="container">
+    <div class="row">
+
+      <div class="col-sm-6 text-center mt-4">
+        <p>Proyecto: Portafolio Dinámico con HTML, CSS y Javascript</p>
+        <p>Ingresar para modificar los datos:</p>
+        <button type="button" class="btn btn-dark" (click)="login()" *ngIf="!isLogged">Ingresar</button>
+        <button type="button" class="btn btn-dark" (click)="logout()" *ngIf="isLogged">Salir</button>
       </div>
-  
+
+      <div class="col-sm-6 text-center mt-4">
+        <p>Trabajo realizado para:</p>
+        <img src="../assets/img/logos_argprog.png" class="img-fluid mx-auto d-block"
+          alt="Argentina Programa - #YoProgramo">
+
+      </div>
+
     </div>
-  </footer>
+    <div class="row">
+      <div class="col-sm-12 text-center mt-4">
+        <p>Creado por Lucas Paez - 2022</p>
+      </div>
+    </div>
+
+  </div>
+</footer>

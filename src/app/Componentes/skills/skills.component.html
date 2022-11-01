@@ -1,109 +1,67 @@
- <!-- Skills
- <section id="skills" class="section-bg">
-    <div class="container mt-2">
-        <div class="titulo-seccion">
-            <h2>Skills</h2>
-            <p>Capacidad y conocimientos técnicos orientados al desarrollo, que he absorbido a lo largo de mi trayectoria en el sector IT.</p>
-        </div>
-        <div class="row">
-            <div class="col-lg-6 mb-3">
-                <div class="skill-bars">
-                    <div class="bar">
-                      <div class="info">
-                        <span>HTML</span>
-                      </div>
-                      <div class="progress-line html">
-                        <span></span>
-                      </div>
-                    </div>
-                    <div class="bar">
-                      <div class="info">
-                        <span>CSS</span>
-                      </div>
-                      <div class="progress-line css">
-                        <span></span>
-                      </div>
-                    </div>
-                    <div class="bar">
-                      <div class="info">
-                        <span>JavaScript</span>
-                      </div>
-                      <div class="progress-line javascript">
-                        <span></span>
-                      </div>
-                    </div>
-                    <div class="bar">
-                      <div class="info">
-                        <span>Angular</span>
-                      </div>
-                      <div class="progress-line angular">
-                        <span></span>
-                      </div>
-                    </div>
-                    <div class="bar">
-                      <div class="info">
-                        <span>MySQL</span>
-                      </div>
-                      <div class="progress-line mysql">
-                        <span></span>
-                      </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mb-3">
-                <div class="skill-bars">
-                    <div class="bar">
-                      <div class="info">
-                        <span>Java</span>
-                      </div>
-                      <div class="progress-line java">
-                        <span></span>
-                      </div>
-                    </div>
-                    <div class="bar">
-                      <div class="info">
-                        <span>C / C++</span>
-                      </div>
-                      <div class="progress-line c">
-                        <span></span>
-                      </div>
-                    </div>
-                    <div class="bar">
-                      <div class="info">
-                        <span>Python</span>
-                      </div>
-                      <div class="progress-line python">
-                        <span></span>
-                      </div>
-                    </div>
-                    <div class="bar">
-                      <div class="info">
-                        <span>GitHub</span>
-                      </div>
-                      <div class="progress-line github">
-                        <span></span>
-                      </div>
-                    </div>
-                    <div class="bar">
-                      <div class="info">
-                        <span>TypeScript</span>
-                      </div>
-                      <div class="progress-line typescript">
-                        <span></span>
-                      </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section> -->
-
-<!-- Skills version 2 -->
+<!-- Skills -->
 <section id="skills" class="section-bg">
   <div class="container">
     <div class="titulo-seccion">
-        <h2>Skills</h2>
+      <h2>Skills</h2><span (click)="editarSkills()" *ngIf="isLogged" class="botonEditar" data-bs-toggle="modal"
+        data-bs-target="#editarSkillsModal"> <i class='bx bxs-edit-alt'></i> Editar Skills</span>
+        <span *ngIf="isLogged" class="botonEditar" data-bs-toggle="modal" data-bs-target="#agregarSkill"><i class='bx bxs-add-to-queue' ></i> Agregar Skill</span>
     </div>
     <div class="tagcloud"></div>
   </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="editarSkillsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Skills</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let sk of skills">
+              <td>
+                <input type="text" [(ngModel)]="sk.tag">
+              </td>
+              <td>
+                <button class="btn btn-warning" (click)="actualizarSkill(sk.id, sk.tag)"><i class='bx bx-save' ></i></button>
+              </td>
+              <td>
+                <button class="btn btn-danger" (click)="eliminarSkill(sk.id)"><i class='bx bxs-trash'></i></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Agregar Skill -->
+<div class="modal fade" id="agregarSkill" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Nueva Skill</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form  novalidate #f="ngForm" class="needs-validation">
+          <div class="mb-3 form-group">
+            <label for="tag" class="form-label">Ingrese nueva skill:</label>
+            <input type="text" class="form-control" id="tag" name="tag" [(ngModel)]="tag" required>
+            <div class="valid-feedback"></div>
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
+            <button type="button" class="btn btn-primary" (click)="agregarSkill()">Agregar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

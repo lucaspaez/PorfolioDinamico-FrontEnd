@@ -3,28 +3,149 @@
     <div class="container">
         <div class="titulo-seccion">
             <h2>Acerca de mi</h2>
-            <p>Los últimos cuatro años me he
-                encontrado inmerso en tareas
-                operativas y administrativas dentro de la
-                industria. Esto me abrió un mundo de
-                nuevas oportunidades no tan solo
-                laborales sino de crecimiento personal.</p>
+            <span (click)="editarDatosPersonales(13)" *ngIf="isLogged" class="botonEditar" data-bs-toggle="modal" data-bs-target="#editarDatosPersonales"> <i class='bx bxs-edit-alt'></i> Editar Datos Personales</span>
+            <span (click)="editarDatosAboutMe(1)" *ngIf="isLogged" class="botonEditar" data-bs-toggle="modal" data-bs-target="#editarDatosAboutMe"> <i class='bx bxs-edit-alt'></i> Editar Datos Laborales</span>
+            <p>{{aboutMe.descripcion}}</p>
         </div>
         <div class="row">
             <div class="col-lg-4">
                 <img src="../assets/img/foto_perfil.jpg" alt="Lucas Paez" class="position-relative top-50 start-50 translate-middle">
             </div>
             <div class="col-lg-8">
-                <h3>Soporte Técnico IT & Desarrollador</h3>
+                <h3>{{aboutMe.profesion}}</h3>
                 <ul class="lista">
-                    <li><i class="fa-solid fa-angle-right"></i><b>Fecha de Nacimiento:</b> 16 Jul 1985</li>
-                    <li><i class="fa-solid fa-angle-right"></i><b>Edad:</b> 37 años</li>
-                    <li><i class="fa-solid fa-angle-right"></i><b>Ciudad:</b> Ushuaia, Argentina</li>
-                    <li><i class="fa-solid fa-angle-right"></i><b>email:</b> lucaspaez.ar@gmail.com</li>
-                    <li><i class="fa-solid fa-angle-right"></i><b>Sitio Web:</b> lucaspaez.github.io</li>
-                    <li><i class="fa-solid fa-angle-right"></i><b>Freelance:</b> Si</li>
+                    <li><i class="fa-solid fa-angle-right"></i><b>Fecha de Nacimiento: </b>{{persona.fechaNac}}</li>
+                    <li><i class="fa-solid fa-angle-right"></i><b>Edad:</b> {{persona.edad}}</li>
+                    <li><i class="fa-solid fa-angle-right"></i><b>Ciudad:</b> {{aboutMe.vivoEn}}</li>
+                    <li><i class="fa-solid fa-angle-right"></i><b>email:</b> {{persona.email}}</li>
+                    <li><i class="fa-solid fa-angle-right"></i><b>Sitio Web:</b> {{aboutMe.sitioWeb}}</li>
                 </ul>
             </div>
         </div>
     </div>
 </section>
+
+<!-- Modal -->
+<div class="modal fade" id="editarDatosPersonales" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Editar Datos Personales</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form #f="ngForm" novalidate>
+                        
+            <div class="form-group">
+              <label for="nombre" class="form-label">Nombre</label>
+              <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="personaRecuperada.nombre" required>
+            </div>
+            <div class="form-group">
+              <label for="apellido" class="form-label">Apellido</label>
+              <input type="text" class="form-control" id="apellido" name="apellido" [(ngModel)]="personaRecuperada.apellido" required>
+            </div>
+            <div class="form-group">
+              <label for="dni" class="form-label">DNI</label>
+              <input type="text" class="form-control" id="dni" name="dni" [(ngModel)]="personaRecuperada.dni" required>
+            </div>
+            <div class="form-group">
+              <label for="edad" class="form-label">Edad</label>
+              <input type="text" class="form-control" id="edad" name="edad" [(ngModel)]="personaRecuperada.edad" required>
+            </div>
+            <div class="form-group">
+              <label for="email" class="form-label">Email</label>
+              <input type="text" class="form-control" id="email" name="email" [(ngModel)]="personaRecuperada.email" required>
+            </div>
+            <div class="form-group">
+              <label for="fechaNac" class="form-label">Fecha de Nacimiento</label>
+              <input type="text" class="form-control" id="fechaNac" name="fechaNac" [(ngModel)]="personaRecuperada.fechaNac" required>
+            </div>
+  
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="actualizarPersona()">Guardar los Cambios</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Otros Datos Sobre Mi-->
+<div class="modal fade" id="editarDatosAboutMe" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Datos Laborales..</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm" novalidate>
+          <div class="form-group">
+            <label for="descripcion" class="form-label">Breve descripción sobre mi:</label>
+            <input type="text" class="form-control" id="descripcion" name="descripcion" [(ngModel)]="aboutMeRecuperado.descripcion" required>
+          </div>
+          <div class="form-group">
+            <label for="estudie" class="form-label">Estudie:</label>
+            <input type="text" class="form-control" id="estudie" name="estudie" [(ngModel)]="aboutMeRecuperado.estudie" required>
+          </div>
+          <div class="form-group">
+            <label for="profesion" class="form-label">Profesion:</label>
+            <input type="text" class="form-control" id="profesion" name="profesion" [(ngModel)]="aboutMeRecuperado.profesion" required>
+          </div>
+          <div class="form-group">
+            <label for="vivoEn" class="form-label">Vivo en:</label>
+            <input type="text" class="form-control" id="vivoEn" name="vivoEn" [(ngModel)]="aboutMeRecuperado.vivoEn" required>
+          </div>
+          <div class="form-group">
+            <label for="trabajoComo" class="form-label">Trabajo como:</label>
+            <input type="text" class="form-control" id="trabajoComo" name="trabajoComo" [(ngModel)]="aboutMeRecuperado.trabajoComo" required>
+          </div>
+          <div class="form-group">
+            <label for="soy" class="form-label">Soy:</label>
+            <input type="text" class="form-control" id="soy" name="soy" [(ngModel)]="aboutMeRecuperado.soy" required>
+          </div>
+          <div class="form-group">
+            <label for="especialistaEn" class="form-label">Especialista en:</label>
+            <input type="text" class="form-control" id="especialistaEn" name="especialistaEn" [(ngModel)]="aboutMeRecuperado.especialistaEn" required>
+          </div>
+
+          <hr>
+          <hr>
+
+          <div class="form-group">
+            <label for="sitioWeb" class="form-label">Url de mi sitio web:</label>
+            <input type="text" class="form-control" id="sitioWeb" name="sitioWeb" [(ngModel)]="aboutMeRecuperado.sitioWeb" required>
+          </div>
+          <div class="form-group">
+            <label for="facebook" class="form-label">Facebook:</label>
+            <input type="text" class="form-control" id="facebook" name="facebook" [(ngModel)]="aboutMeRecuperado.facebook" required>
+          </div>
+          <div class="form-group">
+            <label for="instagram" class="form-label">Instagram:</label>
+            <input type="text" class="form-control" id="instagram" name="instagram" [(ngModel)]="aboutMeRecuperado.instagram" required>
+          </div>
+          <div class="form-group">
+            <label for="linkedin" class="form-label">Linkedin:</label>
+            <input type="text" class="form-control" id="linkedin" name="linkedin" [(ngModel)]="aboutMeRecuperado.linkedin" required>
+          </div>
+
+          <hr>
+          <hr>
+
+          <div class="form-group">
+            <label for="imgPerfil" class="form-label">Selecciona una Foto de Perfil</label>
+            <input type="file" class="form-control" id="imgPerfil" name="imgPerfil" [(ngModel)]="aboutMeRecuperado.imgPerfil" (change)="uploadImagePerfil($event)" accept=".jpg, jpeg, .png" required>
+          </div>
+          <div class="form-group">
+            <label for="imgHero" class="form-label">Selecciona una Foto para el Hero</label>
+            <input type="file" class="form-control" id="imgHero" name="imgHero" [(ngModel)]="aboutMeRecuperado.imgHero" (change)="uploadImageHero($event)" accept=".jpg, jpeg, .png" required>
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary" (click)="actualizarAboutMe()">Guardar los Cambios</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

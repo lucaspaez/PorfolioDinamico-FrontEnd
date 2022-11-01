@@ -8,6 +8,6 @@ export class PortfolioService {
   constructor() { }
 
   obtenerDatos() {
-    console.log("Es servicio se esta corriendo de manera correcta...");
+    //console.log("Es servicio se esta corriendo de manera correcta...");
   }
 }

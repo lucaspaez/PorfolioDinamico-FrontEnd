@@ -2,72 +2,24 @@
 <section id="experiencia">
     <div class="container mt-4">
         <div class="titulo-seccion">
-            <h2>Experiencia</h2>
+            <h2>Experiencia</h2><span *ngIf="isLogged" class="botonEditar" data-bs-toggle="modal" data-bs-target="#agregarExperienciaModal"><i class='bx bxs-add-to-queue' ></i> Agregar Experiencia</span>
             <p>Experiencia laboral relevante en diferentes empresas y liderando equipos de trabajo.</p>
         </div>
         <div class="container-experiencia">
             <div class="timeline">
               <ul>
-                <li>
+                <li *ngFor="let exp of experiencias">
                   <div class="timeline-content">
-                    <h3 class="date">Actualidad</h3>
-                    <h1>Operador de Sistemas</h1>
-                    <p>Procesamiento de datos en Banco Tierra del Fuego, Ushuaia Argentina.</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="timeline-content">
-                    <h3 class="date">12 may, 2022</h3>
-                    <h1>Ingeniería de Procesos</h1>
-                    <p>Análisis y optimización de los procesos productivos.
-                      Desarrollo y seguimiento de nuevos proyectos.
-                      Supervisión de calidad en la línea de producción.
-                      Implementación y análisis de KPIs.</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="timeline-content">
-                    <h3 class="date">12 abr, 2022</h3>
-                    <h1>Planificador de Producción</h1>
-                    <p>Diseño de plan de producción. Determinación y
-                      calculo de los volúmenes de producción y stock.</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="timeline-content">
-                    <h3 class="date">8 mar, 2021</h3>
-                    <h1>Responsable de Logística</h1>
-                    <p>Gestión y planificación de las actividades de
-                      transporte, almacenaje y distribución. Optimización en los
-                      plazos de entregas y almacenamiento de producto terminado.</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="timeline-content">
-                    <h3 class="date">20 mar, 2018</h3>
-                    <h1>Supervisor de Producción</h1>
-                    <p>Supervisión y optimización de la producción. Asegurar la
-                      calidad del producto. Líder de equipos.</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="timeline-content">
-                    <h3 class="date">20 mar, 2018</h3>
-                    <h1>Supervisor de Producción</h1>
-                    <p>Supervisión y optimización de procesos productivos.
-                      Carga de indicadores de producción. Asegurar la
-                      calidad del producto. Formación a los operarios de
-                      máquinas y operarios de clasificación. Líder de
-                      equipos.</p>
-                  </div>
-                </li>
-                <li>
-                  <div class="timeline-content">
-                    <h3 class="date">20 mar, 2018</h3>
-                    <h1>Soporte IT</h1>
-                    <p>Implementación, administración y monitoreo de Networking.
-                      Administración de servidores NAS, Firewall, FTP,
-                      Active Directory. GNU/Linux Debian. Configuración Cisco y Mikrotik. Auditoria de Red.</p>
+                    
+                    <h3 class="date"> <span *ngIf="exp.actual==true; else elseBlock">Actualidad</span><ng-template #elseBlock>{{exp.dia}}/{{exp.mes}}/{{exp.anio}}</ng-template></h3>
+                    
+                    <span *ngIf="isLogged" class="botonEditarExperiencia"  data-bs-toggle="modal" data-bs-target="#editarExperienciaModal" (click)="editarExperiencia(exp.id)"><i class='bx bxs-edit-alt'></i> Editar</span>
+                    
+                    <span *ngIf="isLogged" class="botonBorrarExperiencia" (click)="borrarExperiencia(exp.id)"><i class='bx bxs-edit-alt'></i> Borrar</span>
+                    
+                    <h1>{{exp.cargo}}</h1>
+                    <p>{{exp.descripcion}}</p>
+                    <span ></span>
                   </div>
                 </li>
               </ul>
@@ -75,3 +27,107 @@
           </div>
     </div>
 </section>
+
+<!-- Modal para Editar Experiencias-->
+<div class="modal fade" id="editarExperienciaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar Experiencia</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form #f="ngForm" novalidate>
+                        
+          <div class="form-group">
+            <label for="cargo" class="form-label">Cargo/Puesto ocupado</label>
+            <input type="text" class="form-control" id="cargo" name="cargo" [(ngModel)]="experienciaRecuperada.cargo" required>
+          </div>
+
+          <div class="form-group">
+            <label for="descripcion" class="form-label">Descripcion</label>
+            <textarea class="form-control" id="descripcion" rows="3" name="descripcion" [(ngModel)]="experienciaRecuperada.descripcion" required></textarea>
+          </div>
+          
+          <div class="form-check form-switch form-group">
+            <input class="form-check-input" type="checkbox" id="actual" name="actual" [(ngModel)]="experienciaRecuperada.actual">
+            <label class="form-check-label" for="actual">¿Es su trabajo actual?</label>
+          </div>
+          
+          <br>
+          
+          <div class="form-group">
+            <label for="dia" class="form-label">Indique el día que inició este trabajo</label>
+            <input type="text" class="form-control" id="dia" name="dia" [(ngModel)]="experienciaRecuperada.dia">
+          </div>
+
+          <div class="form-group">
+            <label for="mes" class="form-label">Indique el mes que inició este trabajo</label>
+            <input type="text" class="form-control" id="mes" name="mes" [(ngModel)]="experienciaRecuperada.mes">
+          </div>
+
+          <div class="form-group">
+            <label for="anio" class="form-label">Indique el año que inició este trabajo</label>
+            <input type="text" class="form-control" id="anio" name="anio" [(ngModel)]="experienciaRecuperada.anio">
+          </div>
+
+          <div class="modal-footer">
+              <button type="button" class="btn btn-primary">Guardar los Cambios</button>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
+        <button type="button" class="btn btn-primary" (click)="actualizarExperiencia()">Guardar cambios</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para Agregar Experiencias -->
+<div class="modal fade" id="agregarExperienciaModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Agregar Experiencia Laboral</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form  novalidate #f="ngForm" class="needs-validation">
+          <div class="mb-3 form-group">
+            <label for="cargo" class="form-label">Cargo/Puesto ocupado</label>
+            <input type="text" class="form-control" id="cargo" name="cargo" placeholder="Complete con cargo o puesto ocupado en ese momento..." [(ngModel)]="cargo" required>
+            <div class="valid-feedback"></div>
+          </div>
+          <div class="mb-3 form-group">
+            <label for="descripcion" class="form-label">Descripcion</label>
+            <textarea class="form-control" id="descripcion" rows="3" name="descripcion" placeholder="Complete describiendo las tareas que realizo para el cargo/puesto..." [(ngModel)]="descripcion"></textarea>
+            <div class="valid-feedback"></div>
+          </div>
+          <div class="form-check form-switch form-group">
+            <input class="form-check-input" type="checkbox" id="actual" name="actual" [(ngModel)]="actual">
+            <label class="form-check-label" for="actual">¿Es su trabajo actual?</label>
+          </div>
+          <br>
+          <div class="mb-3 form-group">
+            <label for="dia" class="form-label">Indique el día que inició este trabajo</label>
+            <input type="text" class="form-control" id="dia" name="dia" placeholder="Debe igresar un numero, por ejemplo: 23" [(ngModel)]="dia">
+          </div>
+          <div class="mb-3 form-group">
+            <label for="mes" class="form-label">Indique el mes que inició este trabajo</label>
+            <input type="text" class="form-control" id="mes" name="mes" placeholder="Debe ingresar texto, por ejemplo: marzo"  [(ngModel)]="mes">
+          </div>
+          <div class="mb-3 form-group">
+            <label for="anio" class="form-label">Indique el año que inició este trabajo</label>
+            <input type="text" class="form-control" id="anio" name="anio" placeholder="Debe igresar 4 numeros, por ejemplo: 2022" [(ngModel)]="anio">
+          </div>
+          <div class="modal-footer">
+            <!-- <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button> -->
+            <button type="button" class="btn btn-primary" (click)="agregarExperiencia()">Agregar Experiencia</button>
+          </div>
+        </form>
+      </div>
+      
+    </div>
+  </div>
+</div>
